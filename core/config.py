@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 env_path = Path('..') / '.env'
 
 load_dotenv(dotenv_path=env_path)
+
 
 class Settings:
     PROJECT_TITLE: str = "Job board"
@@ -20,5 +22,6 @@ class Settings:
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30
     TEST_USER_EMAIL = "test@example.com"
+
 
 settings = Settings()
