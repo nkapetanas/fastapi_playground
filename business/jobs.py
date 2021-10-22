@@ -13,20 +13,9 @@ class JobBase(BaseModel):
     date_posted: Optional[date] = datetime.now().date()
 
 
-class JobCreate(JobBase):
+class Job(JobBase):
     title: str
     company: str
     location: str
     description: str
 
-
-class ShowJob(JobBase):
-    title: str
-    company: str
-    company_url: Optional[str]
-    location: str
-    date_posted: date
-    description: Optional[str]
-
-    class Config():
-        orm_mode = True

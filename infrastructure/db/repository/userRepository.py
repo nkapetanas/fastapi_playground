@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
 
+from business.users import User
 from core.hashing import Hasher
 from infrastructure.db.entities.users import User
-from schemas.users import UserCreate
 
 
-def createNewUser(user: UserCreate, db: Session) -> User:
+def createNewUser(user: User, db: Session) -> User:
     user = User(username=user.username,
                 email=user.email,
                 hashed_password=Hasher.getHashedPassword(user.password),

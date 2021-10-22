@@ -1,9 +1,9 @@
 from datetime import timedelta
 
-from apis.utils import OAuth2PasswordBearerWithCookie
+from api.utils import OAuth2PasswordBearerWithCookie
 from core.security import create_access_token
-from db.repository.login import get_user
-from db.session import get_db
+from infrastructure.db.repository.login import get_user
+from infrastructure.db.session import get_db
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException, status
 from fastapi import Response
