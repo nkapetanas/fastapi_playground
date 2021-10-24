@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from api.v1.users.UserJson import UserJson
-from infrastructure.db.repository.userRepository import createNewUser
+from infrastructure.db.repository.UserRepository import createNewUser
 from infrastructure.db.session import get_db
 from business.users import User
 

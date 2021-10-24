@@ -1,9 +1,9 @@
 from typing import List
 
 from api.v1.jobs.JobJson import JobJson
-from api.v1.route_login import get_current_user_from_token
-from infrastructure.db.entities.users import User
-from infrastructure.db.repository.jobRepository import (create_new_job, retreive_job, list_jobs, update_job_by_id,
+from api.v1.LoginRest import get_current_user_from_token
+from infrastructure.db.entities.UserEntity import UserEntity
+from infrastructure.db.repository.JobRepository import (create_new_job, retrieve_job, list_jobs, update_job_by_id,
                                                         delete_job_by_id)
 from infrastructure.db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -16,15 +16,15 @@ router = APIRouter()
 
 @router.post("/create-job", response_model=JobJson)
 def create_job(job: Job, db: Session = Depends(get_db),
-               current_user: User = Depends(get_current_user_from_token)):
+               current_user: UserEntity = Depends(get_current_user_from_token)):
     owner_id = current_user.id
     job = create_new_job(job=job, db=db, owner_id=owner_id)
     return job
 
 
 @router.get("/get/{id}", response_model=JobJson)
-def retreive_job_by_id(id: int, db: Session = Depends(get_db)):
-    job = retreive_job(id=id, db=db)
+def retrieve_job_by_id(id: int, db: Session = Depends(get_db)):
+    job = retrieve_job(id=id, db=db)
     print(job)
     if not job:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -40,9 +40,9 @@ def retrieve_all_jobs(db: Session = Depends(get_db)):
 
 @router.put("/update/{id}")
 def update_job(id: int, job: Job, db: Session = Depends(get_db),
-               current_user: User = Depends(get_current_user_from_token)):
+               current_user: UserEntity = Depends(get_current_user_from_token)):
     owner_id = current_user.id
-    job_retrieved = retreive_job(id=id, db=db)
+    job_retrieved = retrieve_job(id=id, db=db)
     if not job_retrieved:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job with id {id} does not exist")
@@ -55,8 +55,8 @@ def update_job(id: int, job: Job, db: Session = Depends(get_db),
 
 
 @router.delete("/delete/{id}")
-def delete_job(id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user_from_token)):
-    job = retreive_job(id=id, db=db)
+def delete_job(id: int, db: Session = Depends(get_db), current_user: UserEntity = Depends(get_current_user_from_token)):
+    job = retrieve_job(id=id, db=db)
     if not job:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Job with id {id} does not exist")

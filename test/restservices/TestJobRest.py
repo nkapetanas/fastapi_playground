@@ -14,7 +14,7 @@ def test_create_job(client, normal_user_token_headers):
     assert response.status_code == 200
 
 
-def test_retreive_job_by_id(client, normal_user_token_headers):
+def test_retrieve_job_by_id(client, normal_user_token_headers):
     data = {
         "title": "SDE 1 Yahoo",
         "company": "testhoo",
