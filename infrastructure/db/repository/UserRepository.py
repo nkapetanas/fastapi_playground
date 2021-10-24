@@ -5,7 +5,7 @@ from core.hashing import Hasher
 from infrastructure.db.entities.UserEntity import UserEntity
 
 
-def createNewUser(user: UserEntity, db: Session) -> UserEntity:
+def createNewUser(user: User, db: Session) -> UserEntity:
     user = UserEntity(username=user.username,
                       email=user.email,
                       hashed_password=Hasher.getHashedPassword(user.password),
